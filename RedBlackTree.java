@@ -88,7 +88,50 @@ public class RedBlackTree {
 
     public void geraDOT()   {}
 
-    public void splitRotate()    {}
-    public void sprewRotate()    {}
+    //manda nodo para esquerda, fazendo rotacao
+    public void rodaEsq(Node nodo)    {
+        Node aux = nodo.right;
+
+        nodo.right = aux.left;
+        if(aux.left!=null)  {
+            aux.left.father=nodo;
+        }
+
+        aux.father=nodo.father;
+        if (nodo.father==null)   {
+            root=aux;
+        }
+        else {
+            if (nodo == nodo.father.left)   {
+                nodo.father.left=aux;
+            }
+            else nodo.father.right=aux;
+        }
+        aux.left=nodo;
+        nodo.father=aux;
+    }
+
+    //manda nodo para direita, fazendo rotacao
+    public void rodaDir(Node nodo)    {
+        Node aux = nodo.left;
+
+        nodo.left = aux.right;
+        if(aux.right!=null)  {
+            aux.right.father=nodo;
+        }
+
+        aux.father=nodo.father;
+        if (nodo.father==null)   {
+            root=aux;
+        }
+        else {
+            if (nodo == nodo.father.left)   {
+                nodo.father.left=aux;
+            }
+            else nodo.father.right=aux;
+        }
+        aux.right=nodo;
+        nodo.father=aux;
+    }
 
 }
