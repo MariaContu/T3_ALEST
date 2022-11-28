@@ -84,9 +84,11 @@ public class RedBlackTree {
             pos.add(n.element); //Visita o nodo
         }
     }
-
     public List<Integer> positionsWidth()    {}
 
     public void geraDOT()   {}
+
+    public void splitRotate()    {}
+    public void sprewRotate()    {}
 
 }
