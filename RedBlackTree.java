@@ -20,7 +20,7 @@ public class RedBlackTree {
     }
 
     public Node getParent(Node node)    {
-
+        return node.father;
     }
 
     public void clear() {
