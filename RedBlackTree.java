@@ -8,6 +8,10 @@ public class RedBlackTree {
     Node nil;
     int count;
 
+    //atributo para height
+    int hLeft = 0;
+    int hRight = 0;
+
     public RedBlackTree() { //Construtor da arvore
         count = 0;
         root = null;
@@ -36,8 +40,32 @@ public class RedBlackTree {
         Node aux = searchNodeRef(i, root);
         return (aux!=null);
     }
-    
-    public int height() {}
+
+    //O(n)
+    public int height() {//precisa de um recursivo para ir ate o final da arvore
+        if (root == null) return 0;
+        if (root.right==null || root.left==null) return 0;
+        return heightAux(root);
+    }
+
+    //recursivo usado em height para passar por todos os nodes
+    public int heightAux(Node node)  {
+        if ( node.left != nil)  {
+            hLeft++;
+            heightAux(node.left);
+        }
+
+        if ( node.right != nil) {
+            hRight++;
+            heightAux(node.right);
+        }
+        int h = 0;
+
+        if (hLeft>hRight || hLeft==hRight) h = hLeft;
+        if (hLeft<hRight) h = hLeft;
+
+        return 1+h;
+    }
 
     public int size()   { return count; } //retorna numero de nodos
 
@@ -90,7 +118,25 @@ public class RedBlackTree {
             pos.add(n.element); //Visita o nodo
         }
     }
-    public List<Integer> positionsWidth()    {}
+    public List<Integer> positionsWidth()    {
+        Queue<Node> fila = new Queue<>();
+        Node atual = null;
+        List<Integer> res = new ArrayList<>();
+        if (root != null) {
+            fila.enqueue(root);
+            while (!fila.isEmpty()) {
+                atual = fila.dequeue();
+                if (atual.left != null) {
+                    fila.enqueue(atual.left);
+                }
+                if (atual.right != null) {
+                    fila.enqueue(atual.right);
+                }
+                res.add(atual.element);
+            }
+        }
+        return res;
+    }
 
 
     public void rodaEsq(Node nodo)    {  //manda nodo para esquerda, fazendo rotacao
@@ -138,7 +184,7 @@ public class RedBlackTree {
         nodo.father=aux;
     }
 
-    //METODOS TIRADOS DE ARQUIVO DA PROFESSORA
+    //geradot
 
     private void GeraConexoesDOT(Node nodo) {
         if (nodo == null) {
