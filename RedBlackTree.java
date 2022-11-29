@@ -206,12 +206,12 @@ public class RedBlackTree {
         Node aux = nodo.right;
 
         nodo.right = aux.left;
-        if(aux.left!=null)  {
+        if(aux.left!=nil)  {
             aux.left.father=nodo;
         }
 
         aux.father=nodo.father;
-        if (nodo.father==null)   {
+        if (nodo.father==nil)   {
             root=aux;
         }
         else {
@@ -229,12 +229,12 @@ public class RedBlackTree {
         Node aux = nodo.left;
 
         nodo.left = aux.right;
-        if(aux.right!=null)  {
+        if(aux.right!=nil)  {
             aux.right.father=nodo;
         }
 
         aux.father=nodo.father;
-        if (nodo.father==null)   {
+        if (nodo.father==nil)   {
             root=aux;
         }
         else {
