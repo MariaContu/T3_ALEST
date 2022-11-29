@@ -9,7 +9,7 @@ public class App {
         }
 
         //altura da arvore
-        rbt.height();
+        System.out.println("Altura da arvore é: " +rbt.height());
 
         //geradot
         rbt.geraDOT();
@@ -23,7 +23,7 @@ public class App {
         }
 
         //apresenta conteudo pelo caminhamento central
-        System.out.println(rbt.positionsCentral());
+        System.out.println("Caminhamento central: "+rbt.positionsCentral());
 
         //clona arvore
         newRbt=rbt.clone();
