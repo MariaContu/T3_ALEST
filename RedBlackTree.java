@@ -14,6 +14,8 @@ public class RedBlackTree {
     }
 
     //metodos
+
+    //O(log n)
     public void add(int i)  {
         Node node = new Node(i);
 
@@ -29,6 +31,7 @@ public class RedBlackTree {
         root = null;
     }
 
+    //O(log n)
     public boolean contains(int i)  {   //retorna true ou false se a arvore contem um elemento
         Node aux = searchNodeRef(i, root);
         return (aux!=null);
