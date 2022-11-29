@@ -1,12 +1,14 @@
 public class App {
     public static void main(String[] args) {
         RedBlackTree rbt = new RedBlackTree();
+        RedBlackTree newRbt = new RedBlackTree();
 
         //adiciona os elementos da arvore
         for (int i = 1; i <= 9; i++) {
             rbt.add(i);
         }
-        //altura
+
+        //altura da arvore
         rbt.height();
 
         //geradot
@@ -20,14 +22,14 @@ public class App {
             rbt.add(i);
         }
 
-        //conteudo pelo caminhamento central
-        rbt.positionsCentral();
+        //apresenta conteudo pelo caminhamento central
+        System.out.println(rbt.positionsCentral());
 
         //clona arvore
-        rbt.clone();
+        newRbt=rbt.clone();
 
         //geradot
-        rbt.geraDOT();
+        newRbt.geraDOT();
 
     }
 }

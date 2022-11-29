@@ -14,7 +14,8 @@ public class RedBlackTree {
 
     public RedBlackTree() { //Construtor da arvore
         count = 0;
-        root = null;
+        nil = new Node(null);
+        root=nil;
     }
 
     //metodos
@@ -22,7 +23,64 @@ public class RedBlackTree {
     //O(log n)
     public void add(int i)  {
         Node node = new Node(i);
+        Node y = nil;
+        Node x = root;
+        while (x!=nil) { //transforma o nodo y no pai correto do novo nodo
+            y = x;
+            if (node.element<x.element) x = x.left;
+            else x = x.right;
+        }
+        node.father = y;
+        if (y==nil) root = node; //se o pai for nulo, o nodo é a raiz
+        else if (node.element<y.element) y.left = node;
+        else y.right = node;
+        node.left = nil;
+        node.right = nil;
+        node.color = Cor.RED;
+        addAux(node); //verifica e balança a árvore
+        count++;
+    }
 
+    private void addAux(Node node) {
+        while (node.father.color.equals(Cor.RED)) {
+            if (node.father==node.father.father.left) {
+                Node y = node.father.father.right;
+                if (y.color.equals(Cor.RED)) {
+                    node.father.color = Cor.BLACK;
+                    y.color = Cor.BLACK;
+                    node.father.father.color = Cor.RED;
+                    node = node.father.father;
+                }
+                else if(node == node.father.right) {
+                    node = node.father;
+                    rodaEsq(node);
+                }
+                else {
+                    node.father.color = Cor.BLACK;
+                    node.father.father.color = Cor.RED;
+                    rodaDir(node.father.father);
+                }
+            }
+            else {
+                Node y = node.father.father.left;
+                if (y.color.equals(Cor.RED)) {
+                    node.father.color = Cor.BLACK;
+                    y.color = Cor.BLACK;
+                    node.father.father.color = Cor.RED;
+                    node = node.father.father;
+                }
+                else if(node == node.father.left) {
+                    node = node.father;
+                    rodaDir(node);
+                }
+                else {
+                    node.father.color = Cor.BLACK;
+                    node.father.father.color = Cor.RED;
+                    rodaEsq(node.father.father);
+                }
+            }
+        }
+        root.color = Cor.BLACK;
     }
 
 
@@ -32,7 +90,7 @@ public class RedBlackTree {
 
     public void clear() {   //limpa arvore
         count = 0;
-        root = null;
+        root = nil;
     }
 
     //O(log n)
@@ -72,9 +130,14 @@ public class RedBlackTree {
     public boolean isEmpty()   {
         return (root==null);
     } //retorna se arvore esta vazia
-    
-    public RedBlackTree clone()   {
 
+    //O(n log n)
+    public RedBlackTree clone()   {
+        RedBlackTree newTree = new RedBlackTree();
+        for (Integer x : positionsPre()) {
+            if (x!=null) newTree.add(x);
+        }
+        return newTree;
     }
 
     public List<Integer> positionsPre()    {    //lista pre ordenada

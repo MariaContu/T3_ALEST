@@ -1,6 +1,6 @@
 class Node {
     //atributos
-    int element;
+    Integer element;
     Node father;
     Node left;
     Node right;
@@ -9,7 +9,7 @@ class Node {
     //construtor
 
 
-    public Node(int element) {
+    public Node(Integer element) {
         father=null;
         left = null;
         right = null;
