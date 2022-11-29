@@ -1,7 +1,7 @@
 public class App {
     public static void main(String[] args) {
         RedBlackTree rbt = new RedBlackTree();
-        RedBlackTree newRbt = new RedBlackTree();
+        RedBlackTree newRbt;
 
         //adiciona os elementos da arvore
         for (int i = 1; i <= 9; i++) {
