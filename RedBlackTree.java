@@ -8,7 +8,7 @@ public class RedBlackTree {
     Node nil;
     int count;
 
-    public RedBlackTree() {
+    public RedBlackTree() { //Construtor da arvore
         count = 0;
         root = null;
     }
@@ -19,37 +19,40 @@ public class RedBlackTree {
 
     }
 
-    public Node getParent(Node node)    {
+
+    public Node getParent(Node node)    {//retorna pai
         return node.father;
     }
 
-    public void clear() {
+    public void clear() {   //limpa arvore
         count = 0;
         root = null;
     }
 
-    public boolean contains(int i)  {}
+    public boolean contains(int i)  {   //retorna true ou false se a arvore contem um elemento
+        Node aux = searchNodeRef(i, root);
+        return (aux!=null);
+    }
     
     public int height() {}
 
-    public int size()   { return count; }
+    public int size()   { return count; } //retorna numero de nodos
 
     public boolean isEmpty()   {
         return (root==null);
-    }
+    } //retorna se arvore esta vazia
     
     public RedBlackTree clone()   {
-        RedBlackTree equal = new RedBlackTree();
-        return equal;
+
     }
 
-    public List<Integer> positionsPre()    {
+    public List<Integer> positionsPre()    {    //lista pre ordenada
         List<Integer> elemPre = new ArrayList<>();
         positionsPreAux(root,elemPre);
         return elemPre;
     }
 
-    private void positionsPreAux(Node n, List<Integer> pre) {
+    private void positionsPreAux(Node n, List<Integer> pre) { //recursao da lista pre ordenada
         if (n != null) {
             pre.add(n.element); //Visita o nodo
             positionsPreAux(n.left, pre); //Visita a subárvore da esquerda
@@ -57,13 +60,13 @@ public class RedBlackTree {
         }
     }
 
-    public List<Integer> positionsCentral()    {
+    public List<Integer> positionsCentral()    {    //lista central
         List<Integer> elemCen = new ArrayList<>();
         positionsPreAux(root,elemCen);
         return elemCen;
     }
 
-    private void positionsCentralAux(Node n, List<Integer> center) {
+    private void positionsCentralAux(Node n, List<Integer> center) {    //recursao lista central
         if (n != null) {
             positionsCentralAux(n.left, center); //Visita a subárvore da esquerda
             center.add(n.element); //Visita o nodo
@@ -71,13 +74,13 @@ public class RedBlackTree {
         }
     }
 
-    public List<Integer> positionsPos()    {
+    public List<Integer> positionsPos()    {    //lista pos ordenada
         List<Integer> elemPos = new ArrayList<>();
         positionsPreAux(root,elemPos);
         return elemPos;
     }
 
-    private void positionsPosAux(Node n, List<Integer> pos) {
+    private void positionsPosAux(Node n, List<Integer> pos) {   //recursao lista pos ordenada
         if (n != null) {
             positionsPreAux(n.left, pos); //Visita a subárvore da esquerda
             positionsPreAux(n.right, pos); //Visita a subárvore da direita
@@ -86,8 +89,8 @@ public class RedBlackTree {
     }
     public List<Integer> positionsWidth()    {}
 
-    //manda nodo para esquerda, fazendo rotacao
-    public void rodaEsq(Node nodo)    {
+
+    public void rodaEsq(Node nodo)    {  //manda nodo para esquerda, fazendo rotacao
         Node aux = nodo.right;
 
         nodo.right = aux.left;
@@ -109,8 +112,8 @@ public class RedBlackTree {
         nodo.father=aux;
     }
 
-    //manda nodo para direita, fazendo rotacao
-    public void rodaDir(Node nodo)    {
+
+    public void rodaDir(Node nodo)    { //manda nodo para direita, fazendo rotacao
         Node aux = nodo.left;
 
         nodo.left = aux.right;
@@ -184,6 +187,17 @@ public class RedBlackTree {
         System.out.println("");
         GeraConexoesDOT(root);
         System.out.println("}" + "\n");
+    }
+
+    private Node searchNodeRef(Integer element, Node target) {  //procura elemento pela arvore RECURSIVO
+        if (element == null || target == null)
+            return null;
+        if (element == target.element)
+            return target;
+        if (element < target.element)
+            return searchNodeRef(element, target.left);
+        else
+            return searchNodeRef(element, target.right);
     }
 
 }
